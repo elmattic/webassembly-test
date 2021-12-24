@@ -9,7 +9,9 @@ fn main() -> Result<()> {
         }
     };
     // Modules can be compiled through either the text or binary format
-    let engine = Engine::default();
+    let mut config = Config::default();
+    config.wasm_simd(true);
+    let engine = Engine::new(&config).unwrap();
     let module = Module::from_file(&engine, &file)?;
     let mut tests = Vec::new();
     for export in module.exports() {
